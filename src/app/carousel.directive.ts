@@ -6,13 +6,22 @@ import { ICarouselContext } from './innterfaces/app-interface';
 })
 export class CarouselDirective implements OnInit {
   
-  context: ICarouselContext | null= null;
+  context: ICarouselContext | any;
   
   index: number=0;
+
+  timer: any;
   constructor(private templateref: TemplateRef<ICarouselContext>
     ,private viewContainerRef: ViewContainerRef) { }
 
   @Input('appCarouselFrom') images: string[]=[];
+
+  @Input('appCarouselAutoPlay') 
+  set auto(val: string)
+  {
+    val === 'No' ? this.clearAutoPlay() : this.autoPlay();
+  }
+
 
  public ngOnInit() {
     this.context=
@@ -20,8 +29,8 @@ export class CarouselDirective implements OnInit {
       $implicit: this.images[0] ,
       controller:
       {
-        next: ()=> this.next,
-        prev: ()=> this.prev
+        next: ()=> this.next(),
+        prev: ()=> this.prev()
       }
     }
 
@@ -35,7 +44,7 @@ export class CarouselDirective implements OnInit {
       
       this.index=0;
     }
-//this.context.$implicit=this.images[this.index] ;
+this.context.$implicit=this.images[this.index] ;
   }
 
   public prev()
@@ -44,6 +53,21 @@ export class CarouselDirective implements OnInit {
     if(this.index<0){
 this.index=this.images.length-1;
     }
-//this.context.$implicit=this.images[this.index] ;
+this.context.$implicit=this.images[this.index] ;
   }
+
+
+  public autoPlay()
+  {
+    this.timer= setInterval(()=>{
+      this.next()},1000
+    );
+  }
+
+  public clearAutoPlay()
+  {
+    clearInterval(this.timer);
+  }
+
+
 }

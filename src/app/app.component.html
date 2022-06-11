@@ -3,9 +3,9 @@
 
 <h1 [appHighllight]="bgcolor">sepehr systems</h1>
 
-<div *appCarousel="let image from images;let crtl=controller">
-    <button (click)="crtl.prev()">PREV</button>
-    <img [src]="image">
+<div *appCarousel="let image from images autoPlay 'No';let crtl=controller" >
+<button (click)="crtl.prev()">PREV</button>
+    <img [src]="image" style="width: 800px; height: 600px;">
 
     <button (click)="crtl.next()">NEXT</button>
 
