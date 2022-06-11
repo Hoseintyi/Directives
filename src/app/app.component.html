@@ -1,0 +1,13 @@
+<input appHighlights type="text">
+
+
+<h1 [appHighllight]="bgcolor">sepehr systems</h1>
+
+<div *appCarousel="let image from images;let crtl=controller">
+    <button (click)="crtl.prev()">PREV</button>
+    <img [src]="image">
+
+    <button (click)="crtl.next()">NEXT</button>
+
+
+</div>
