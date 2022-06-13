@@ -8,7 +8,7 @@ export class CarouselDirective implements OnInit {
   
   context: ICarouselContext | any;
   
-  index: number=0;
+  index: number= 0;
 
   timer: any;
   constructor(private templateref: TemplateRef<ICarouselContext>
